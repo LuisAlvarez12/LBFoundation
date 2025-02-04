@@ -6,18 +6,34 @@
 //
 import SwiftUI
 
-public extension UIColor {
+public extension Color {
     
-    static var random: Color {
+    public static var random: Color {
         return Color(
             red: .random(in: 0 ... 1),
             green: .random(in: 0 ... 1),
             blue: .random(in: 0 ... 1)
         )
     }
-
     
-    init(hex: String) {
+    public var components: (r: Double, g: Double, b: Double, a: Double) {
+        #if canImport(UIKit)
+            typealias NativeColor = UIColor
+        #elseif canImport(AppKit)
+            typealias NativeColor = NSColor
+        #endif
+
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+
+        guard NativeColor(self).getRed(&r, green: &g, blue: &b, alpha: &a) else { return (0, 0, 0, 0) }
+
+        return (Double(r), Double(g), Double(b), Double(a))
+    }
+
+    public init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
         Scanner(string: hex).scanHexInt64(&int)
@@ -41,8 +57,10 @@ public extension UIColor {
             opacity: Double(a) / 255
         )
     }
-    
-    var hexString: String? {
+}
+
+public extension UIColor {
+    public var hexString: String? {
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
