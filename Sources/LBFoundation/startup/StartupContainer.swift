@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-public struct StartupContainer<Content: View>: View {
+public struct StartupContainer<LoadingContent: View, LoadedContent: View>: View {
     
     var startupTasks: () async -> Void
     
-    @ViewBuilder var loading: () -> Content
-    @ViewBuilder var content: () -> Content
+    @ViewBuilder var loading: () -> LoadingContent
+    @ViewBuilder var content: () -> LoadedContent
     
     @State private var startupComplete = false
     
-    public init(startupTasks: @escaping () async -> Void, loading: @escaping () -> Content, content: @escaping () -> Content) {
+    public init(startupTasks: @escaping () async -> Void, loading: @escaping () -> LoadingContent, content: @escaping () -> LoadedContent) {
         self.startupTasks = startupTasks
         self.loading = loading
         self.content = content
@@ -25,7 +25,9 @@ public struct StartupContainer<Content: View>: View {
     public var body: some View {
         ZStack {
             if startupComplete {
-                content()
+                MainFrame {
+                    content()
+                }
             } else {
                 loading()
             }
