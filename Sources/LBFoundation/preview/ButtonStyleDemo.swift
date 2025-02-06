@@ -6,11 +6,16 @@
 //
 import SwiftUI
 
-extension PreviewUtils {
-    struct ButtonStyleDemo<ButtonType: ButtonStyle>: View {
+public extension PreviewUtils {
+    
+    public struct ButtonStyleDemo<ButtonType: ButtonStyle>: View {
         var style: ButtonType
+        
+        public init(style: ButtonType) {
+            self.style = style
+        }
 
-        var body: some View {
+        public var body: some View {
             PreviewUtils.FeaturesContainer {
                 VStack {
                     Button("Hello", systemImage: "folder", action: {})
