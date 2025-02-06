@@ -5,7 +5,6 @@
 //  Created by Luis Alvarez on 2/3/25.
 //
 
-
 import SwiftUI
 
 @available(iOS 16.0, *)
@@ -14,7 +13,7 @@ public extension View {
     /// - Parameter language: The language to apply
     /// - Returns: A view with the specified language applied to its environment
     @available(iOS 16.0, *)
-    public func withLanguage(_ language: LocalizedLanguages) -> some View {
+    func withLanguage(_ language: LocalizedLanguages) -> some View {
         environment(\.locale, .init(identifier: language.identifier))
     }
 }

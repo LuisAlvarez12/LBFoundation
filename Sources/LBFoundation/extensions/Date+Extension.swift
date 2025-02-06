@@ -13,7 +13,7 @@ public extension Date {
     /// (e.g., "2 hours ago", "3 days ago", etc.)
     ///
     /// - Returns: A localized string representing the relative time
-    public func timeAgoDisplay() -> String {
+    func timeAgoDisplay() -> String {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
         return formatter.localizedString(for: self, relativeTo: Date())

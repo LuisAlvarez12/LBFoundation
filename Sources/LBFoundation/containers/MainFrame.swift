@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-public struct MainFrame<Content: View> : View {
+public struct MainFrame<Content: View>: View {
     @State var notificationsHelper: NotificationsManager = Features.notifications
-    
+
     @ViewBuilder var content: () -> Content
-    
+
     public init(content: @escaping () -> Content) {
         self.content = content
     }
-    
+
     public var body: some View {
         ZStack {
             content()

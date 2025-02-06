@@ -8,8 +8,7 @@
 import SwiftUI
 
 public extension Features {
-    
-    public static var haptics: HapticsManager {
+    static var haptics: HapticsManager {
         shared.fetchFeature(featureKey: HapticsManager.featureKey) as! HapticsManager
     }
 }
@@ -17,7 +16,6 @@ public extension Features {
 /// Manager for handling haptic feedback across different platforms
 @Observable
 public class HapticsManager: LBFeature {
-    
     public static let featureKey: String = "Haptics"
 
     /// Current haptic feedback data
@@ -44,7 +42,7 @@ public extension View {
     /// - Returns: A view that responds to haptic feedback events
     func hapticsReciever() -> some View {
         #if os(iOS)
-        sensoryFeedback(Features.haptics.feedbackHandler.feedback, trigger: Features.haptics.feedbackHandler)
+            sensoryFeedback(Features.haptics.feedbackHandler.feedback, trigger: Features.haptics.feedbackHandler)
         #else
             self
         #endif

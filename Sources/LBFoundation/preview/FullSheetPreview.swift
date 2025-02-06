@@ -8,14 +8,13 @@
 import SwiftUI
 
 public extension PreviewUtils {
-    
-    public struct FullSheetPreview<Content>: View where Content: View {
+    struct FullSheetPreview<Content>: View where Content: View {
         @ViewBuilder var content: () -> Content
-        
+
         public init(content: @escaping () -> Content) {
             self.content = content
         }
-        
+
         public var body: some View {
             VStack {
                 Color.clear

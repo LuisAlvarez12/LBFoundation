@@ -5,7 +5,6 @@
 //  Created by Luis Alvarez on 2/3/25.
 //
 
-
 //
 //  LunchLogger.swift
 //  LunchBox
@@ -16,22 +15,20 @@
 import SwiftUI
 
 public extension Features {
-    
-    public static var logger: LBLogger {
+    static var logger: LBLogger {
         shared.fetchFeature(featureKey: LBLogger.featureKey) as! LBLogger
     }
 }
 
 /// A logging utility for the LunchBox framework
-public class LBLogger : LBFeature {
-
+public class LBLogger: LBFeature {
     public static let featureKey: String = "Logger"
-    
+
     private static let spacing = "   → "
-    
+
     /// Set Logtypes here to ignore specific event types
     var ignoredEvents: [LBLogger.LogType] = []
-    
+
     var lastKey: String = ""
 
     /// Logs a message with a specific key and type
@@ -51,10 +48,10 @@ public class LBLogger : LBFeature {
     ///   - message: The message to log
     ///   - type: The type of log message (defaults to .Error)
     private func innerPrint(_ key: String, message: String, type: LogType = .Debug) {
-        self.innerPrintKey(key)
+        innerPrintKey(key)
         print("LunchLogger |  \(Self.spacing) \(type.typeString) | \(message)")
     }
-    
+
     private func innerPrintKey(_ key: String) {
         if key != lastKey {
             lastKey = key
@@ -111,10 +108,10 @@ public func errors(_ key: String = "", message: String, type: LBLogger.LogType =
 #Preview {
     VStack {
         Button("Log1", action: {
-           logs("Luis", message: "Tester")
+            logs("Luis", message: "Tester")
         })
         Button("Log1", action: {
-           logs("Luis2", message: "Tester")
+            logs("Luis2", message: "Tester")
         })
     }
 }

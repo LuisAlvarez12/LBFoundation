@@ -7,16 +7,15 @@
 import SwiftUI
 
 public extension Color {
-    
-    public static var random: Color {
+    static var random: Color {
         return Color(
             red: .random(in: 0 ... 1),
             green: .random(in: 0 ... 1),
             blue: .random(in: 0 ... 1)
         )
     }
-    
-    public var components: (r: Double, g: Double, b: Double, a: Double) {
+
+    var components: (r: Double, g: Double, b: Double, a: Double) {
         #if canImport(UIKit)
             typealias NativeColor = UIColor
         #elseif canImport(AppKit)
@@ -33,7 +32,7 @@ public extension Color {
         return (Double(r), Double(g), Double(b), Double(a))
     }
 
-    public init(hex: String) {
+    init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
         Scanner(string: hex).scanHexInt64(&int)
@@ -60,7 +59,7 @@ public extension Color {
 }
 
 public extension UIColor {
-    public var hexString: String? {
+    var hexString: String? {
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0

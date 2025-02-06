@@ -5,8 +5,8 @@
 //  Created by Luis Alvarez on 2/3/25.
 //
 
-import SwiftUI
 import Observation
+import SwiftUI
 
 /// Returns the current app theme scheme
 public var currentAppTheme: AppThemeScheme {
@@ -14,19 +14,16 @@ public var currentAppTheme: AppThemeScheme {
 }
 
 public extension Features {
-    
-    public static var theme: AppThemeManager {
+    static var theme: AppThemeManager {
         shared.fetchFeature(featureKey: AppThemeManager.featureKey) as! AppThemeManager
     }
 }
 
-
 /// Manager for handling the app's theme
 @Observable
 public class AppThemeManager: LBFeature {
-    
     public static let featureKey: String = "ThemeManager"
-    
+
     /// The currently active theme scheme
     public var currentTheme = AppThemeScheme()
 }
@@ -41,30 +38,30 @@ public struct AppThemeScheme {
     public static let LBThemeError = Color(UIColor(named: "lbThemeError", in: Bundle.module, compatibleWith: nil)!)
     public static let LBThemeErrorContainer = Color(UIColor(named: "lbThemeErrorContainer", in: Bundle.module, compatibleWith: nil)!)
     public static let LBThemeBackground = Color(UIColor(named: "lbThemeBackground", in: Bundle.module, compatibleWith: nil)!)
-    
+
     /// Primary theme color
     public var primary: Color = Self.LBThemePrimary
     /// Container color for primary elements
     public var primaryContainer: Color = Self.LBThemePrimaryContainer
-    
+
     /// Secondary theme color
     public var secondary: Color = Self.LBThemeSecondary
     /// Container color for secondary elements
     public var secondaryContainer: Color = Self.LBThemeSecondaryContainer
-    
+
     /// Error state color
     public var error: Color = Self.LBThemeError
     /// Container color for error states
     public var errorContainer: Color = Self.LBThemeErrorContainer
-    
+
     /// Background color
     public var background: Color = Self.LBThemeBackground
 
     /// Surface color scheme
-    public var surface: SurfaceScheme = SurfaceScheme()
+    public var surface: SurfaceScheme = .init()
     /// Text color scheme
-    public var text: TextScheme = TextScheme()
-    
+    public var text: TextScheme = .init()
+
     /// Creates a new app theme scheme
     /// - Parameters:
     ///   - primary: Primary theme color
@@ -84,7 +81,8 @@ public struct AppThemeScheme {
                 errorContainer: Color = AppThemeScheme.LBThemeErrorContainer,
                 background: Color = AppThemeScheme.LBThemeBackground,
                 surface: SurfaceScheme = SurfaceScheme(),
-                text: TextScheme = TextScheme()) {
+                text: TextScheme = TextScheme())
+    {
         self.primary = primary
         self.primaryContainer = primaryContainer
         self.secondary = secondary
@@ -103,14 +101,14 @@ public struct SurfaceScheme {
     public static let LBThemeSurfaceDim = Color(UIColor(named: "lbThemeSurfaceDim", in: Bundle.module, compatibleWith: nil)!)
     public static let LBThemeSurfaceNormal = Color(UIColor(named: "lbThemeSurfaceNormal", in: Bundle.module, compatibleWith: nil)!)
     public static let LBThemeSurfaceBright = Color(UIColor(named: "lbThemeSurfaceBright", in: Bundle.module, compatibleWith: nil)!)
-    
+
     /// Dimmed surface color
     public var dim: Color = Self.LBThemeSurfaceDim
     /// Normal surface color
     public var normal: Color = Self.LBThemeSurfaceNormal
     /// Bright surface color
     public var Bright: Color = Self.LBThemeSurfaceBright
-    
+
     /// Creates a new surface scheme
     /// - Parameters:
     ///   - dim: Dimmed surface color
@@ -118,7 +116,8 @@ public struct SurfaceScheme {
     ///   - Bright: Bright surface color
     public init(dim: Color = SurfaceScheme.LBThemeSurfaceDim,
                 normal: Color = SurfaceScheme.LBThemeSurfaceNormal,
-                Bright: Color = SurfaceScheme.LBThemeSurfaceBright) {
+                Bright: Color = SurfaceScheme.LBThemeSurfaceBright)
+    {
         self.dim = dim
         self.normal = normal
         self.Bright = Bright
@@ -130,23 +129,23 @@ public struct TextScheme {
     /// Standard text colors
     public static let LBThemeTextPrimary = Color(UIColor(named: "lbThemeTextPrimary", in: Bundle.module, compatibleWith: nil)!)
     public static let LBThemeTextSecondary = Color(UIColor(named: "lbThemeTextSecondary", in: Bundle.module, compatibleWith: nil)!)
-    
+
     /// Primary text color
     public var primary: Color = Self.LBThemeTextPrimary
     /// Secondary text color
     public var seconary: Color = Self.LBThemeTextSecondary
-    
+
     /// Creates a new text scheme
     /// - Parameters:
     ///   - primary: Primary text color
     ///   - seconary: Secondary text color
     public init(primary: Color = TextScheme.LBThemeTextPrimary,
-                seconary: Color = TextScheme.LBThemeTextSecondary) {
+                seconary: Color = TextScheme.LBThemeTextSecondary)
+    {
         self.primary = primary
         self.seconary = seconary
     }
 }
-
 
 /// A view that displays a preview of color themes
 public struct ColorThemeReview: View {
@@ -158,7 +157,7 @@ public struct ColorThemeReview: View {
     public init(theme: AppThemeScheme = AppThemeScheme()) {
         self.theme = theme
     }
-    
+
     public var body: some View {
         ScrollView {
             ColorDisplay(name: "primary", color: theme.primary)
@@ -168,11 +167,11 @@ public struct ColorThemeReview: View {
             ColorDisplay(name: "error", color: theme.error)
             ColorDisplay(name: "errorContainer", color: theme.errorContainer)
             ColorDisplay(name: "background", color: theme.background, textColor: theme.text.primary)
-            
+
             ColorDisplay(name: "surface.normal", color: theme.surface.normal, textColor: theme.text.primary)
             ColorDisplay(name: "surface.dim", color: theme.surface.dim, textColor: theme.text.primary)
             ColorDisplay(name: "surface.Bright", color: theme.surface.Bright, textColor: theme.text.primary)
-            
+
             ColorDisplay(name: "text.primary", color: theme.background, textColor: theme.text.primary)
             ColorDisplay(name: "text.seconary", color: theme.background, textColor: theme.text.primary)
         }
@@ -184,13 +183,13 @@ public struct ColorDisplay: View {
     let name: String
     let color: Color
     var textColor: Color = .white
-    
+
     public init(name: String, color: Color, textColor: Color = .white) {
         self.name = name
         self.color = color
         self.textColor = textColor
     }
-    
+
     public var body: some View {
         VStack {
             Text(name).foregroundStyle(textColor)

@@ -9,20 +9,18 @@ import StoreKit
 import SwiftUI
 
 public extension Features {
-    
-    public static var appOpens: AppOpensManager {
+    static var appOpens: AppOpensManager {
         shared.fetchFeature(featureKey: AppOpensManager.featureKey) as! AppOpensManager
     }
 }
 
 /// Manages app launch counts and review prompts
-public class AppOpensManager : LBFeature {
-    
+public class AppOpensManager: LBFeature {
     public static let featureKey: String = "AppOpens"
-    
+
     /// Storage key for tracking number of app launches
     private static let TIMES_LOGGED_IN = "timesLoggedIn"
-    
+
     /// Storage key for tracking number of times review prompt has been shown
     private static let HAS_SEEN_REVIEW_PROMPT = "timesSeenReviewPrompt"
 
@@ -54,7 +52,6 @@ public class AppOpensManager : LBFeature {
                     // show review dialog
                     SKStoreReviewController.requestReview(in: currentScene)
                 }
-               
             }
         }
     }

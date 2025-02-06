@@ -15,11 +15,10 @@ public extension Features {
 
 @MainActor
 @Observable
-public class NotificationsManager : @preconcurrency LBFeature {
-    
+public class NotificationsManager: @preconcurrency LBFeature {
     public static let featureKey: String = "Notifications"
-    
-    public var notificationMessage: AlertMessage? = nil
+
+    public var notificationMessage: AlertMessage?
 
     private var currentTask: Task<Void, Never>?
 
@@ -46,15 +45,14 @@ public class NotificationsManager : @preconcurrency LBFeature {
             notificationMessage = alertMessage
         }
         currentTask?.cancel()
-        
+
         currentTask = hideAlertTask()
     }
 
     private func hideAlertTask() -> Task<Void, Never> {
         return Task {
-            
             await delay(1.0)
-            
+
             if Task.isCancelled {
                 return
             }
@@ -69,7 +67,6 @@ public class NotificationsManager : @preconcurrency LBFeature {
 }
 
 private struct FloatingNoticeTestView: View {
-
     var body: some View {
         VStack {
             Button("Show Alert", action: {
@@ -87,9 +84,7 @@ private struct FloatingNoticeTestView: View {
     }, content: {
         FloatingNoticeTestView()
     })
-    
 }
-
 
 public struct SimpleNotificationView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -98,7 +93,7 @@ public struct SimpleNotificationView: View {
     public let image: String
     public var color: Color = .blue
     public var loading: Bool = false
-    
+
     public init(title: LocalizedStringKey, image: String, color: Color = .blue, loading: Bool = false) {
         self.title = title
         self.image = image
@@ -140,7 +135,7 @@ public struct AlertMessage {
     public var color: Color = .blue
     public var imageName: String = "info.circle.fill"
     public var isLoading: Bool = false
-    
+
     public init(message: LocalizedStringKey, color: Color = .blue, imageName: String = "info.circle.fill", isLoading: Bool = false) {
         self.message = message
         self.color = color
@@ -155,7 +150,7 @@ public struct FloatingNotice: View {
     public init(alertMessage: AlertMessage) {
         self.alertMessage = alertMessage
     }
-    
+
     public var body: some View {
         SimpleNotificationView(title: alertMessage.message, image: alertMessage.imageName, color: alertMessage.color)
     }

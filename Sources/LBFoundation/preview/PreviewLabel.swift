@@ -22,7 +22,8 @@ public struct PreviewLabel<Content>: View where Content: View {
     ///   - content: A closure that creates the content to display
     public init(_ previewText: String,
                 cornerRadius: CGFloat = 16,
-                content: @escaping () -> Content) {
+                content: @escaping () -> Content)
+    {
         self.previewText = previewText
         self.content = content
         self.cornerRadius = cornerRadius
@@ -39,16 +40,15 @@ public struct PreviewLabel<Content>: View where Content: View {
             }
             .cornerRadius(cornerRadius)
             .padding(cornerRadius)
-                .background(RoundedRectangle(cornerRadius: cornerRadius * 2).fill(Material.thick))
-                .padding(16, 4)
-       
+            .background(RoundedRectangle(cornerRadius: cornerRadius * 2).fill(Material.thick))
+            .padding(16, 4)
         }
     }
 }
 
 #Preview {
     PreviewLabel("This is a Red View", content: {
-        VStack{
+        VStack {
             Color.red
         }
     })
