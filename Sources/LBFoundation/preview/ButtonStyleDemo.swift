@@ -7,10 +7,9 @@
 import SwiftUI
 
 public extension PreviewUtils {
-    
-    public struct ButtonStyleDemo<ButtonType: ButtonStyle>: View {
+    struct ButtonStyleDemo<ButtonType: ButtonStyle>: View {
         var style: ButtonType
-        
+
         public init(style: ButtonType) {
             self.style = style
         }

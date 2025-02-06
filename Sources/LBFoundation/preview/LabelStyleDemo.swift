@@ -7,10 +7,9 @@
 import SwiftUI
 
 public extension PreviewUtils {
-    
-    public struct LabelStyleDemo<LabelType: LabelStyle>: View {
+    struct LabelStyleDemo<LabelType: LabelStyle>: View {
         var style: LabelType
-        
+
         public init(style: LabelType) {
             self.style = style
         }

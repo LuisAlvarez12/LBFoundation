@@ -1,5 +1,5 @@
 //
-//  GenericFaker.swift
+//  GenericWords.swift
 //
 //
 //  Created by Luis Alvarez on 9/13/23.
@@ -9,14 +9,13 @@ import Foundation
 import SwiftUI
 
 public extension String {
-    public func localized() -> LocalizedStringKey {
+    func localized() -> LocalizedStringKey {
         LocalizedStringKey(self)
     }
 }
 
 /// A lightweight lorem ipsum generator.
 public enum GenericWords {
-
     /// Generates a single word.
     public static var word: String {
         return allWords.randomElement()!
