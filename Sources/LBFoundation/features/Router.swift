@@ -14,6 +14,11 @@ public extension Features {
 }
 
 public struct AppRoute: Hashable, Equatable {
+    
+    public init(route: any LBRoute) {
+        self.route = route
+    }
+    
     public var route: any LBRoute
 
     public static func == (_: AppRoute, _: AppRoute) -> Bool {
@@ -60,5 +65,5 @@ public class Router: LBFeature {
 
 public protocol LBRoute: Hashable {
     var routeKey: String { get }
-    var title: String { get }
+    var title: LocalizedStringKey { get }
 }
