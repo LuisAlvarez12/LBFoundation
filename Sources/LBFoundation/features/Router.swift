@@ -13,20 +13,33 @@ public extension Features {
     }
 }
 
+public struct AppRoute: Hashable, Equatable {
+    public var route: any LBRoute
+
+    public static func == (_: AppRoute, _: AppRoute) -> Bool {
+        return false
+    }
+
+    public func hash(into _: inout Hasher) {
+        // Provide a way to hash your route. For example, if LBRoute has an identifier:
+        // hasher.combine(route.identifier)
+    }
+}
+
 @Observable
 public class Router: LBFeature {
     public static let featureKey: String = "Router"
 
-    public var routes = [any LBRoute]()
+    public var routes = [AppRoute]()
 
     public func navigateTo(route: any LBRoute, clearBackStack: Bool = false) {
         if clearBackStack {
             Features.logger.log("Router", message: "Cleared Backstack")
             Features.logger.log("Router", message: "Set Route: \(route.routeKey)")
-            routes = [route]
+            routes = [AppRoute(route: route)]
         } else {
             Features.logger.log("Router", message: "Navigated to: \(route.routeKey)")
-            routes.append(route)
+            routes.append(AppRoute(route: route))
         }
     }
 
@@ -35,11 +48,17 @@ public class Router: LBFeature {
         routes.removeAll()
     }
 
+    public func pop() {
+        Features.logger.log("Router", message: "Navigation: Popped backstack")
+        routes.removeLast()
+    }
+
     public var currentRoute: (any LBRoute)? {
-        routes.last
+        routes.last?.route
     }
 }
 
-public protocol LBRoute {
+public protocol LBRoute: Hashable {
     var routeKey: String { get }
+    var title: String { get } L
 }
