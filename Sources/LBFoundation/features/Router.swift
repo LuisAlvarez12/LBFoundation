@@ -60,5 +60,5 @@ public class Router: LBFeature {
 
 public protocol LBRoute: Hashable {
     var routeKey: String { get }
-    var title: String { get } L
+    var title: String { get }
 }
